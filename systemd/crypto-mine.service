@@ -1,0 +1,21 @@
+[Unit]
+After=multi-user.target
+Wants=network-online.target systemd-networkd-wait-online.service
+
+StartLimitIntervalSec=500
+StartLimitBurst=5
+
+[Service]
+Environment=GPU_FORCE_64BIT_PTR=0
+Environment=GPU_MAX_HEAP_SIZE=100
+Environment=GPU_USE_SYNC_OBJECTS=1
+Environment=GPU_MAX_ALLOC_PERCENT=100
+Environment=GPU_SINGLE_ALLOC_PERCENT=100
+
+Restart=on-failure
+RestartSec=5s
+
+ExecStart=/home/mgarcia/crypto/bin/mine.sh
+
+[Install]
+WantedBy=default.target
