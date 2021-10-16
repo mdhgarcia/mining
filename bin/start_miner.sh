@@ -10,12 +10,6 @@ usage() {
 		-x  <extra_args>       # Any extra args to pass the miner e.g. \"--coin Ethash\"" 1>&2 && exit 1
 }
 
-# Option defaults
-MINER="t-rex"
-ALGO="ethash"
-POOL="ssl://eth-us-west.flexpool.io"
-PORT="5555"
-
 while getopts ":m:a:s:p:u:x:" opt; do
 	case "${opt}" in
 		m)	MINER="${OPTARG}"
