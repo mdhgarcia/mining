@@ -1,13 +1,27 @@
 #!/usr/bin/env bash
 
-SOURCE="${BASH_SOURCE[0]}"
-while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
-  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
-  SOURCE="$(readlink "$SOURCE")"
-  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-done
-DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+# Find folder from which this script is run courtesy of https://stackoverflow.com/a/246128
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+CONFIGS="${SCRIPT_DIR}/../config"
 
-"${DIR}"/overclock_nvidia_gdm.sh
-"${DIR}"/mine_eth_trex.sh
+. "${CONFIGS}/algo.config"
+echo "${ALGO}"
+
+[ ! -f "${CONFIGS}/${ALGO}.config" ] && echo "Fatal error: algo config doesn't exist" && sleep 3600 && exit 1
+
+. "${CONFIGS}/${ALGO}.config"
+echo "Overclocking each GPU in OVERCLOCK list"
+(
+	IFS=';' 
+	for gpu in "${OVERCLOCK}"; do
+		echo "${gpu}" | xargs "${SCRIPT_DIR}"/overclock_nvidia.sh
+	done
+)
+
+export ALGO
+export MINER
+export POOL
+export PORT
+export WALLET
+"${SCRIPT_DIR}"/start_miner.sh
 
