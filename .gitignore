@@ -2,4 +2,4 @@
 miners/
 
 # Internal config files
-config/
+config/*.config

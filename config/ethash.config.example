@@ -1,0 +1,15 @@
+# Modify this file and save it as <algo>.config
+
+# Replace with your ETH config
+MINER="t-rex"
+POOL="ssl://eth-us-west.flexpool.io"
+PORT="5555"
+WALLET="myWalletAddress.myWorkerName"
+
+# Add a semicolon-separated list of GPU overclocks.
+# Each parameter is optional except for index (-i <gpu>)
+# See overclock_nvidia.sh for details
+#
+# -i <gpu_index> -c <absolute_core_clock> -m <memory_offset> -p <power_limit> -f <fan_speed>
+OVERCLOCK="-i 0 -c 1450 -m 2000 -p 130 -f 60; -i 1 -c 1050 -m 2000 -p 90 -f 60"
+

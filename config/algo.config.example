@@ -1,0 +1,4 @@
+# Modify this file and save it as algo.config
+
+# Replace with the algo you want to run
+ALGO=ethash
