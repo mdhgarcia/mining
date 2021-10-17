@@ -1,10 +1,11 @@
 # Modify this file and save it as <algo>.config
 
 # Replace with your ETH config
-MINER="t-rex"
-POOL="ssl://eth-us-west.flexpool.io"
+MINER="gminer"
+POOL="//eth-us-west.flexpool.io"
 PORT="5555"
 WALLET="myWalletAddress.myWorkerName"
+EXTRA_ARGS="--ssl 1"
 
 # Add a semicolon-separated list of GPU overclocks.
 # Each parameter is optional except for index (-i <gpu>)
