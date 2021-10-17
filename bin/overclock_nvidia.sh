@@ -95,7 +95,7 @@ nvidia-smi -i "${GPU_ID}" -pm 1
 
 # Configure GPU
 [ ! -z "${CORE_CLOCK}" ]    && set_core_clock    "${GPU_ID}" "${CORE_CLOCK}"
-[ ! -z "${MEMORY_OFFSET}" ] && set_memory_offset "${GPU_ID}" "${CORE_CLOCK}"
+[ ! -z "${MEMORY_OFFSET}" ] && set_memory_offset "${GPU_ID}" "${MEMORY_OFFSET}"
 [ ! -z "${POWER_LIMIT}" ]   && set_power_limit   "${GPU_ID}" "${POWER_LIMIT}"
 [ ! -z "${FAN_SPEED}" ]     && set_fan           "${GPU_ID}" "${FAN_SPEED}"
 
