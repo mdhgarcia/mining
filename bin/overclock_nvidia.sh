@@ -79,8 +79,9 @@ find_x_config() {
 # Start an Xorg server if there isn't one already
 find_x_config
 if [ -z "${XAUTHORITY}" ] || [ -z "${DISPLAY}" ]; then
-	Xorg&
-	find_x_config
+	echo "Couldn't find existing Xorg server. Starting a new one."
+	Xorg :0&
+	export DISPLAY=:0
 fi
 
 if [ -z "${XAUTHORITY}" ] || [ -z "${DISPLAY}" ]; then
