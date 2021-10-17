@@ -51,6 +51,9 @@ MINER_DIR="$(find ${MINERS} -maxdepth 1 -name ${MINER}* | head -n 1)"
 if [ "${MINER}"x = "t-rex"x ]; then
 	MINER_EXE="${MINER_DIR}/t-rex"
 	ARGS="-a ${ALGO} -o ${POOL}:${PORT} -u ${WALLET}"
+elif [ "${MINER}"x = "gminer"x ]; then
+	MINER_EXE="${MINER_DIR}/miner"
+	ARGS="-a ${ALGO} -s ${POOL} -n ${PORT} -u ${WALLET}"
 fi
 
 "${MINER_EXE}" ${ARGS} ${EXTRA_ARGS}

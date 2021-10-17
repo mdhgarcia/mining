@@ -23,5 +23,6 @@ export MINER
 export POOL
 export PORT
 export WALLET
+export EXTRA_ARGS
 "${SCRIPT_DIR}"/start_miner.sh
 
