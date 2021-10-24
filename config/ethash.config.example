@@ -12,5 +12,14 @@ EXTRA_ARGS="--ssl 1"
 # See overclock_nvidia.sh for details
 #
 # -i <gpu_index> -c <absolute_core_clock> -m <memory_offset> -p <power_limit> -f <fan_speed>
-OVERCLOCK="-i 0 -c 1450 -m 2000 -p 130 -f 60; -i 1 -c 1050 -m 2000 -p 90 -f 60"
+OVERCLOCK_NVIDIA=(
+	"-i 0 -c 1125 -m 2200 -p 320 -f 75",
+	"-i 1 -c 1450 -m 2500 -p 130 -f 60",
+	"-i 2 -c 1050 -m 2200 -p 90  -f 60",
+	"-i 3 -c 1050 -m 2200 -p 90  -f 60"
+)
 
+# -i <gpu_index> -c <absolute_core_clock> -v <core_voltage_mv> -m <absolute_memory_clock> -t <memory_voltage_mv> -f <fan_speed>
+OVERCLOCK_AMD=(
+	"-i 0 -c 1150 -v 875 -m 2200 -t 950 -f 70"
+)

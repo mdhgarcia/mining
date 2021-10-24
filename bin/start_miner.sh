@@ -54,6 +54,9 @@ if [ "${MINER}"x = "t-rex"x ]; then
 elif [ "${MINER}"x = "gminer"x ]; then
 	MINER_EXE="${MINER_DIR}/miner"
 	ARGS="-a ${ALGO} -s ${POOL} -n ${PORT} -u ${WALLET}"
+elif [ "${MINER}"x = "teamredminer"x ]; then
+	MINER_EXE="${MINER_DIR}/teamredminer"
+	ARGS="-a ${ALGO} -o stratum+ssl://${POOL}:${PORT} -u ${WALLET}"
 fi
 
 "${MINER_EXE}" ${ARGS} ${EXTRA_ARGS}
