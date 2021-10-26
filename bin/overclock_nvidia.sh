@@ -42,11 +42,12 @@ done
 # Function definitions
 
 set_core_clock() {
-	# Set absolute clock speed
+	echo "Setting absolute clock speed to ${2} for GPU ${1}"
 	nvidia-smi -i "${1}" -lgc "${2}"
 }
 
 set_memory_offset() {
+	echo "Setting memory offset ${2} for GPU ${1}"
 	nvidia-settings \
 		-a "[gpu:${1}]/GPUMemoryTransferRateOffset[2]=${2}" \
 		-a "[gpu:${1}]/GPUMemoryTransferRateOffset[3]=${2}" \
@@ -54,11 +55,12 @@ set_memory_offset() {
 }
 
 set_power_limit() {
-	# In Watts
+	echo "Setting power limit to ${2} Watts for GPU ${1}"
 	nvidia-smi -i "${1}" -pl "${2}"
 }
 
 set_fan() {
+	echo "Setting fan to ${2} percent for GPU ${1}"
 	# If fan speed is set to 0, set control to auto
 	if [ ${2} -eq 0 ]; then
 		nvidia-settings -a "[gpu:${1}]/GPUFanControlState=0"
@@ -69,20 +71,6 @@ set_fan() {
 			-a "[fan:${1}]/GPUTargetFanSpeed=${2}"
 	fi
 }
-
-# Attempt to find a serviceable XAUTHORITY
-find_x_config() {
-	export XAUTHORITY="$(ps -ax | grep Xorg | head -n 1 | sed 's|.*-auth *\(.*/Xauthority\).*|\1|')"
-	export DISPLAY="$(ps -axo pid= | xargs -I PID -r cat /proc/PID/environ 2> /dev/null | tr '\0' '\n' | grep ^DISPLAY=: | sort -u | sed 's|^DISPLAY=\(.*\)|\1|' | head -n1)"
-}
-
-# Start an Xorg server if there isn't one already
-find_x_config
-if [ -z "${XAUTHORITY}" ] || [ -z "${DISPLAY}" ]; then
-	echo "Couldn't find existing Xorg server. Starting a new one."
-	Xorg :0&
-	export DISPLAY=:0
-fi
 
 if [ -z "${XAUTHORITY}" ] || [ -z "${DISPLAY}" ]; then
 	echo "Fatal error: Couldn't find or start an X server."

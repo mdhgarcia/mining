@@ -11,16 +11,12 @@ echo "${ALGO}"
 
 . "${CONFIGS}/${ALGO}.config"
 
-echo "Overclocking each GPU in OVERCLOCK lists:"
-for gpu in "${OVERCLOCK_NVIDIA[@]}"; do
-	echo "${gpu}"
-	echo "${gpu}" | xargs "${SCRIPT_DIR}"/overclock_nvidia.sh
-done
+export OVERCLOCK_NVIDIA
+export OVERCLOCK_AMD
+"${SCRIPT_DIR}/oc.sh"
 
-for gpu in "${OVERCLOCK_AMD[@]}"; do
-	echo "${gpu}"
-	echo "${gpu}" | xargs "${SCRIPT_DIR}"/overclock_amd.sh
-done
+# Give the cards some time...
+sleep 3
 
 export ALGO
 export MINER

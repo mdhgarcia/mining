@@ -49,6 +49,7 @@ done
 
 set_core_clock() {
 	# Set absolute clock speed
+	echo "s 3 ${2} ${3}" > "/sys/class/drm/card${1}/device/pp_od_clk_voltage"
 	echo "s 7 ${2} ${3}" > "/sys/class/drm/card${1}/device/pp_od_clk_voltage"
 }
 
@@ -63,12 +64,13 @@ set_power_limit() {
 
 set_fan() {
 	# If fan speed is set to 0, set control to auto
+	PWM_ROOT=$(find "/sys/class/drm/card${1}/device/hwmon/" -name "pwm1")
 	if [ ${2} -eq 0 ]; then
-		echo "2" > "/sys/class/drm/card${1}/device/hwmon/hwmon1/pwm1_enable"
+		echo "2" > "${PWM_ROOT}_enable"
 	else
 		# Enable manual fan control and set speed in %
-		echo "1" > "/sys/class/drm/card${1}/device/hwmon/hwmon1/pwm1_enable"
-		echo "${2}" > "/sys/class/drm/card${1}/device/hwmon/hwmon1/pwm1"
+		echo "1" > "${PWM_ROOT}_enable"
+		echo "${2}" > "${PWM_ROOT}"
 	fi
 }
 

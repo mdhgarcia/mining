@@ -7,15 +7,15 @@ PORT="5555"
 WALLET="myWalletAddress.myWorkerName"
 EXTRA_ARGS="--ssl 1"
 
-# Add a semicolon-separated list of GPU overclocks.
+# Add bash arrays for GPU overclocks.
 # Each parameter is optional except for index (-i <gpu>)
-# See overclock_nvidia.sh for details
+# See overclock_nvidia.sh and overclock_amd.sh for details
 #
 # -i <gpu_index> -c <absolute_core_clock> -m <memory_offset> -p <power_limit> -f <fan_speed>
 OVERCLOCK_NVIDIA=(
-	"-i 0 -c 1125 -m 2200 -p 320 -f 75",
-	"-i 1 -c 1450 -m 2500 -p 130 -f 60",
-	"-i 2 -c 1050 -m 2200 -p 90  -f 60",
+	"-i 0 -c 1125 -m 2200 -p 320 -f 75"
+	"-i 1 -c 1450 -m 2500 -p 130 -f 60"
+	"-i 2 -c 1050 -m 2200 -p 90  -f 60"
 	"-i 3 -c 1050 -m 2200 -p 90  -f 60"
 )
 
