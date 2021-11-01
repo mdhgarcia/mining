@@ -23,6 +23,7 @@ if [ ${#OVERCLOCK_NVIDIA[@]} -gt 0 ]; then
 	find_x_config
 	if [ -z "${XAUTHORITY}" ] || [ -z "${DISPLAY}" ]; then
 		echo "Couldn't find existing Xorg server. Starting a new one."
+		STARTEDX=1
 		Xorg :9&
 		export DISPLAY=:9
 	fi
@@ -38,6 +39,10 @@ if [ ${#OVERCLOCK_NVIDIA[@]} -gt 0 ]; then
 		echo "${gpu}"
 		echo "${gpu}" | xargs "${SCRIPT_DIR}"/overclock_nvidia.sh
 	done
+
+	if [ ! -z "${STARTEDX}" ] && [ ${STARTEDX} -gt 0 ]; then
+		echo "Should stop X here"
+	fi
 fi
 
 echo "Overclocking AMD GPUs"
