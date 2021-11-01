@@ -66,9 +66,16 @@ set_fan() {
 		nvidia-settings -a "[gpu:${1}]/GPUFanControlState=0"
 	else
 		# Enable manual fan control and set speed in %
+		# Assume each GPU has 2 fans for now
+		# TODO: Check nvidia-settings for number of fans
+		FANS_PER_GPU=2
+		FAN_1=$(( ${FANS_PER_GPU}*${1} ))
+		FAN_2=$(( ${FAN_1} + 1 ))
+		echo "Setting fans ${FAN_1} and ${FAN_2}"
 		nvidia-settings \
 			-a "[gpu:${1}]/GPUFanControlState=1" \
-			-a "[fan:${1}]/GPUTargetFanSpeed=${2}"
+			-a "[fan:${FAN_1}]/GPUTargetFanSpeed=${2}" \
+			-a "[fan:${FAN_2}]/GPUTargetFanSpeed=${2}"
 	fi
 }
 
