@@ -19,6 +19,9 @@ find_x_config() {
 
 # Check for Nvidia cards
 if [ ${#OVERCLOCK_NVIDIA[@]} -gt 0 ]; then
+	# TODO: Check whether number of X screens match number of nvidia GPUs
+	nvidia-xconfig -a --cool-bits=28 --allow-empty-initial-configuration
+
 	# Start an Xorg server if there isn't one already
 	find_x_config
 	if [ -z "${XAUTHORITY}" ] || [ -z "${DISPLAY}" ]; then
