@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 
-# Query GPUs
+# TODO: Something useful with this info
+get_settings() {
+	SETTINGS=$(nvidia-settings -q GPUPerfModes -q GPUMemoryTransferRateOffset -q GPUGraphicsClockOffset -q GPUPowerMizerMode -q GPULogoBrightness -q GPUTargetFanSpeed | grep -vE "values|target")
+	echo "Settings: ${SETTINGS}"
+}
+
+get_settings
+
+# Query GPUs via nvidia-smi
 ID_ARGS="index,gpu_bus_id,name"
 STAT_ARGS="clocks.gr,clocks.mem,power.draw,fan.speed,temperature.gpu"
 UTILIZATION="utilization.gpu,utilization.memory"

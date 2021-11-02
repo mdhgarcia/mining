@@ -19,8 +19,8 @@ find_x_config() {
 
 # Check for Nvidia cards
 if [ ${#OVERCLOCK_NVIDIA[@]} -gt 0 ]; then
-	# TODO: Check whether number of X screens match number of nvidia GPUs
-	nvidia-xconfig -a --cool-bits=28 --allow-empty-initial-configuration
+	# TODO: Don't overwrite existing configs and check whether number of extra X screens match number of nvidia GPUs
+#	nvidia-xconfig -a --cool-bits=28 --allow-empty-initial-configuration
 
 	# Start an Xorg server if there isn't one already
 	find_x_config
@@ -54,4 +54,5 @@ for gpu in "${OVERCLOCK_AMD[@]}"; do
 	echo "${gpu}" | xargs "${SCRIPT_DIR}"/overclock_amd.sh
 done
 
-
+echo "Querying GPUs"
+"${SCRIPT_DIR}"/get_gpu_status.sh

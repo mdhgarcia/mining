@@ -96,8 +96,3 @@ nvidia-smi -i "${GPU_ID}" -pm 1
 [ ! -z "${POWER_LIMIT}" ]   && set_power_limit   "${GPU_ID}" "${POWER_LIMIT}"
 [ ! -z "${FAN_SPEED}" ]     && set_fan           "${GPU_ID}" "${FAN_SPEED}"
 
-# Find folder from which this script is run courtesy of https://stackoverflow.com/a/246128
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-
-# Query GPUs
-"${SCRIPT_DIR}"/get_gpu_status.sh
